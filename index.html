@@ -3,38 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language By Party</title>
+    <title>Word Counts by Party</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <div id="chart"></div>
 
     <script>
-
+        // Top 10 Words used in the political speeches sampled
         var data = [
-          {
-              parties:	['Conservative',	'Labour',	'Liberal',	'Liberal Democrat',	'SDP-Liberal Alliance', 'SUM'],
-              people:	[2598,	3003,	545,	1369,	25,	7540],
-              government:	[2175,	2274,	1041,	1229,	46,	6765],
-              country:	[2293,	1862,	679,	586,	16,	5436],
-              year:	[1693,	2072,	640,	804,	29,	5238],
-              party:	[1761,	1464,	951,	1004,	56,	5236],
-              one:	[1559,	1516,	711,	684,	28,	4498],
-              britain:	[1110,	1782,	299,	953,	18,	4162],
-              would:	[1396,	1146,	686,	576,	15,	3819],
-              new:	[1058,	1748,	370,	605,	23,	3804],
-              labour:	[1009,	1633,	334,	631,	29,	3636],
-              right:	[1104,	1757,	222,	400,	4,	3487]
-          }
+            {
+                parties: ['Conservative', 'Labour', 'Liberal', 'Liberal Democrat', 'SDP-Liberal Alliance'],
+                people: [2598, 3003, 545, 1369, 25],
+                government: [2175, 2274, 1041, 1229, 46],
+                country: [2293, 1862, 679, 586, 16],
+                year: [1693, 2072, 640, 804, 29],
+                party: [1761, 1464, 951, 1004, 56],
+                one: [1559, 1516, 711, 684, 28],
+                britain: [1110, 1782, 299, 953, 18],
+                would: [1396, 1146, 686, 576, 15],
+                new: [1058, 1748, 370, 605, 23],
+                labour: [1009, 1633, 334, 631, 29],
+                right: [1104, 1757, 222, 400, 4]
+            }
         ];
+
+        // Extracting data for plotting
+        var parties = data[0].parties;
+        var wordCounts = Object.keys(data[0]).filter(key => key !== 'parties').map(key => data[0][key]);
+
+        // Transpose data
+        var transposedData = wordCounts.map((row, i) => row.map((_, j) => wordCounts[j][i]));
+
+        // Colours most associated with the parties
+        var colors = ['#0087DC', '#DC241F', '#0075FF', '#FDBB30', '#FFA500'];
+
+        // Trace for each party
+        var traces = transposedData.slice(0,5).map((counts, i) => ({
+            x: Object.keys(data[0]).filter(key => key !== 'parties'),
+            y: counts,
+            name: parties[i],
+            type: 'bar',
+            marker: {
+                color: colors[i]
+            }
+        }));
 
         // Layout options
         var layout = {
-            title: 'Interactive Bar Chart'
+            title: 'Word Counts by Party',
+            barmode: 'stack'
         };
 
         // Plot the chart
-        Plotly.newPlot('chart', data, layout);
+        Plotly.newPlot('chart', traces, layout);
     </script>
 </body>
 </html>
