@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language By Party</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+
+        var data = [
+          {
+              parties:	['Conservative',	'Labour',	'Liberal',	'Liberal Democrat',	'SDP-Liberal Alliance', 'SUM'],
+              people:	[2598,	3003,	545,	1369,	25,	7540],
+              government:	[2175,	2274,	1041,	1229,	46,	6765],
+              country:	[2293,	1862,	679,	586,	16,	5436],
+              year:	[1693,	2072,	640,	804,	29,	5238],
+              party:	[1761,	1464,	951,	1004,	56,	5236],
+              one:	[1559,	1516,	711,	684,	28,	4498],
+              britain:	[1110,	1782,	299,	953,	18,	4162],
+              would:	[1396,	1146,	686,	576,	15,	3819],
+              new:	[1058,	1748,	370,	605,	23,	3804],
+              labour:	[1009,	1633,	334,	631,	29,	3636],
+              right:	[1104,	1757,	222,	400,	4,	3487]
+          }
+        ];
+
+        // Layout options
+        var layout = {
+            title: 'Interactive Bar Chart'
+        };
+
+        // Plot the chart
+        Plotly.newPlot('chart', data, layout);
+    </script>
+</body>
+</html>
